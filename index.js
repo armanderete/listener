@@ -21,15 +21,20 @@ async function listenForFreeVote() {
 
     // Listen for the FreeVote event
     contract.on("FreeVote", async (user, contractAddress, amount, tag, concept, event) => {
+        // Ensure blockNumber and transactionHash are retrieved from the event object
+        const blockNumber = event.blockNumber;
+        const transactionHash = event.transactionHash;
+
         const freeVoteEvent = {
             user: user,
             contractAddress: contractAddress,
             amount: amount.toString(),
             tag: tag,
             concept: concept,
-            blockNumber: event.blockNumber,
-            transactionHash: event.transactionHash,
+            blockNumber: blockNumber,
+            transactionHash: transactionHash,
         };
+
         console.log(JSON.stringify(freeVoteEvent, null, 4));
 
         // Insert the event data into Supabase
@@ -42,8 +47,8 @@ async function listenForFreeVote() {
                     amount: amount.toString(),
                     tag: tag,
                     concept: concept,
-                    block_number: event.blockNumber,
-                    transaction_hash: event.transactionHash,
+                    block_number: blockNumber,
+                    transaction_hash: transactionHash,
                 }
             ]);
 
