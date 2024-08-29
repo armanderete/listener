@@ -21,9 +21,12 @@ async function listenForFreeVote() {
 
     // Listen for the FreeVote event
     contract.on("FreeVote", async (user, contractAddress, amount, tag, concept, event) => {
-        // Ensure blockNumber and transactionHash are retrieved from the event object
-        const blockNumber = event.blockNumber;
-        const transactionHash = event.transactionHash;
+        // Retrieve the transaction details
+        const transaction = await event.getTransaction();
+        
+        // Extract block number and transaction hash
+        const blockNumber = transaction.blockNumber;
+        const transactionHash = transaction.hash;
 
         const freeVoteEvent = {
             user: user,
