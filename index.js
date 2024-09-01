@@ -25,8 +25,11 @@ async function listenForFreeVote() {
         const transaction = await event.getTransaction();
         
         // Extract block number and transaction hash
-        const blockNumber = transaction.blockNumber;
-        const transactionHash = transaction.hash;
+    const blockNumber = transaction.blockNumber;
+    const transactionHash = transaction.hash;
+
+    console.log('Block Number:', blockNumber);
+    console.log('Transaction Hash:', transactionHash);
 
         const freeVoteEvent = {
             user: user,
